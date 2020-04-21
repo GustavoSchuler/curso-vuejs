@@ -1,0 +1,24 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <!-- a diretiva 'v-once' faz com que a interpolação ocorra somente uma vez, mesmo que o valor da variável mude -->
+    <p v-once>{{ title }}</p>
+    <p>{{ salutation() }}</p>
+    <a v-bind:href="link">Google</a>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'Usando VueJS!',
+            link: 'https://www.google.com'
+        },
+        methods: {
+            salutation () {
+                this.title = 'Bom dia!'
+                return this.title
+            }
+        }
+    })
+</script>

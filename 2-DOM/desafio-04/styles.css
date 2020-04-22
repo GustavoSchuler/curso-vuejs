@@ -13,3 +13,34 @@
 	background-color: gray;
 	width: 50px !important;
 }
+
+.largura { 
+	width: 300px;
+}
+
+.cor-de-fundo {
+	background-color: green;
+}
+
+.sample {
+	width: 100px;
+	height: 100px;
+	border: 1px solid black;
+	background-color: red;
+}
+
+.sample2 {
+	width: 200px;
+	height: 50px;
+	border: 1px solid black;
+}
+
+.sample3 {
+	background-color: gray;
+}
+
+.progress-bar {
+	border: 1px solid grey;
+	height: 20px;
+	width: 250px;
+}

@@ -1,7 +1,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="https://unpkg.com/vue"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
 <link rel="stylesheet" href="styles.css">
 
 <div id="app">
@@ -9,39 +9,40 @@
         <div class="card-content columns is-centered">
             <div class="column is-narrow has-text-centered">
                 <h2 class="is-size-4">Jogador</h2>
-                <progress
-                    class="progress"
-                    :class="getPgBarClass(playerHealth)"
-                    :value="playerHealth"
-                    max="100">
+                <progress class="progress" :class="getPgBarClass(playerHealth)" :value="playerHealth" max="100">
                 </progress>
                 {{ playerHealth }}%
             </div>
             <div class="column is-narrow has-text-centered">
                 <h2 class="is-size-4">Monstro</h2>
-                <progress
-                    class="progress"
-                    :class="getPgBarClass(monsterHealth)"
-                    :value="monsterHealth"
-                    max="100">
+                <progress class="progress" :class="getPgBarClass(monsterHealth)" :value="monsterHealth" max="100">
                 </progress>
                 {{ monsterHealth }}%
             </div>
         </div>
-    </div>
-    <div class="card">
-        <div class="actions card-content is-centered buttons are-small">
-            <button class="button is-danger">ATAQUE</button>
-            <button class="button is-warning">ATAQUE ESPECIAL</button>
-            <button class="button is-success">CURAR</button>
-            <button class="button">DESISTIR</button>
+        <div class="has-text-centered pb-3" v-if="won || lost">
+            <h2 v-if="won" class="is-size-4 has-text-success">Você ganhou! :)</h2>
+            <h2 v-if="lost" class="is-size-4 has-text-danger">Você perdeu! :(</h2>
         </div>
     </div>
     <div class="card">
+        <div class="actions card-content is-centered buttons are-small">
+            <template v-if="onCourse">
+                <button class="button is-danger" @click="attack()">ATAQUE</button>
+                <button class="button is-warning" @click="attack(true)">ATAQUE ESPECIAL</button>
+                <button class="button is-success" @click="heal()">CURAR</button>
+                <button class="button" @click="stopGame()">DESISTIR</button>
+            </template>
+            <template v-else>
+                <button class="button is-primary" @click="startGame()">INICIAR JOGO</button>
+            </template>
+        </div>
+    </div>
+    <div class="card" v-if="hasLog">
         <div class="actions card-content is-centered">
-            <article class="message is-small is-danger">
+            <article :class="`message is-small is-${action.style}`" v-for="(action, index) in actionsLog" :key="index">
                 <div class="message-body has-text-centered">
-                    ATAQUE REALIZADO!
+                    {{ action.message }}
                 </div>
             </article>
         </div>

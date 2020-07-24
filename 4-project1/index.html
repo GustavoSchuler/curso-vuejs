@@ -27,10 +27,10 @@
     </div>
     <div class="card">
         <div class="actions card-content is-centered buttons are-small">
-            <template v-if="onCourse">
+            <template v-if="playing">
                 <button class="button is-danger" @click="attack()">ATAQUE</button>
                 <button class="button is-warning" @click="attack(true)">ATAQUE ESPECIAL</button>
-                <button class="button is-success" @click="heal()">CURAR</button>
+                <button class="button is-success" @click="heal()" :disabled="playerHealthIsFull">CURAR</button>
                 <button class="button" @click="stopGame()">DESISTIR</button>
             </template>
             <template v-else>
@@ -40,7 +40,7 @@
     </div>
     <div class="card" v-if="hasLog">
         <div class="actions card-content is-centered">
-            <article :class="`message is-small is-${action.style}`" v-for="(action, index) in actionsLog" :key="index">
+            <article :class="`message is-small is-${action.style}`" v-for="(action, index) in log" :key="index">
                 <div class="message-body has-text-centered">
                     {{ action.message }}
                 </div>
